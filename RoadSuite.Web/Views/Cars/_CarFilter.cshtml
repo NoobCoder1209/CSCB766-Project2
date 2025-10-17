@@ -1,0 +1,31 @@
+@model CarFilterViewModel
+<form method="get" class="row g-3 align-items-end bg-darker rounded p-3 shadow-sm mb-3">
+    <input type="hidden" asp-for="SortOrder" />
+    <div class="col-md-3">
+        <label asp-for="Make" class="form-label">Make</label>
+        <input asp-for="Make" class="form-control bg-dark text-light border-secondary" placeholder="e.g. Toyota" />
+    </div>
+    <div class="col-md-3">
+        <label asp-for="CategoryId" class="form-label">Category</label>
+        <select asp-for="CategoryId" asp-items="Model.CategoryOptions" class="form-select bg-dark text-light border-secondary">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="PageSize" class="form-label">Page Size</label>
+        <select asp-for="PageSize" asp-items="Model.PageSizeOptions" class="form-select bg-dark text-light border-secondary"></select>
+    </div>
+    @if (User.IsInRole("Moderator") || User.IsInRole("Admin") || User.IsInRole("Dealer"))
+    {
+        <div class="col-md-2">
+            <label asp-for="Status" class="form-label">Status</label>
+            <select asp-for="Status" asp-items="Model.StatusOptions" class="form-select bg-dark text-light border-secondary">
+                <option value="">All</option>
+            </select>
+        </div>
+    }
+    <div class="col-md-2 d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Apply</button>
+        <a asp-action="@ViewContext.RouteData.Values["action"]" class="btn btn-outline-light">Reset</a>
+    </div>
+</form>

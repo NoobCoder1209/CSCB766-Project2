@@ -1,0 +1,96 @@
+:root {
+    --bg-primary: #0f1115;
+    --bg-secondary: #121212;
+    --accent-primary: #d32f2f;
+    --accent-secondary: #1976d2;
+    --text-primary: #f5f5f5;
+    --text-muted: #9aa0ac;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.navbar {
+    background: linear-gradient(135deg, rgba(211, 47, 47, 0.8), rgba(25, 118, 210, 0.6));
+}
+
+.bg-darker {
+    background-color: var(--bg-secondary) !important;
+}
+
+.btn-primary {
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #b71c1c;
+    border-color: #b71c1c;
+}
+
+.btn-outline-light {
+    border-color: rgba(245, 245, 245, 0.5);
+    color: var(--text-primary);
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(245, 245, 245, 0.1);
+}
+
+.table-dark {
+    --bs-table-bg: var(--bg-secondary);
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+    --bs-table-striped-color: var(--text-primary);
+}
+
+.table-secondary {
+    background-color: rgba(25, 118, 210, 0.2) !important;
+    color: var(--text-primary) !important;
+}
+
+.card,
+.alert,
+.list-group-item,
+.form-control,
+.form-select {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--accent-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.25);
+}
+
+a {
+    color: var(--accent-secondary);
+}
+
+a:hover {
+    color: #63a4ff;
+}
+
+.badge.bg-secondary {
+    background-color: rgba(99, 115, 129, 0.6) !important;
+}
+
+.pagination .page-link {
+    background-color: var(--bg-secondary);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+}
+
+footer {
+    background-color: rgba(15, 17, 21, 0.9);
+}

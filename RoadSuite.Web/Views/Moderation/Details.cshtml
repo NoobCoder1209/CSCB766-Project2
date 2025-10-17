@@ -1,0 +1,54 @@
+@model Car
+@{
+    ViewData["Title"] = "Review " + Model.Make + " " + Model.Model;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Review @Model.Make @Model.Model</h1>
+    <div class="btn-group">
+        <form asp-action="Approve" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-success">Approve</button>
+        </form>
+        <a asp-action="Reject" asp-route-id="@Model.Id" class="btn btn-danger">Reject</a>
+    </div>
+</div>
+
+<div class="card bg-darker border-secondary mb-3">
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">Dealer</dt>
+                    <dd class="col-sm-8">@Model.DealerProfile?.DealershipName (@Model.DealerProfile?.ContactEmail)</dd>
+                    <dt class="col-sm-4">Price</dt>
+                    <dd class="col-sm-8">@Model.Price.ToString("C")</dd>
+                    <dt class="col-sm-4">Category</dt>
+                    <dd class="col-sm-8">@Model.Category?.Name</dd>
+                    <dt class="col-sm-4">Status</dt>
+                    <dd class="col-sm-8">@Model.Status</dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <h5>Description</h5>
+                <p>@Model.Description</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.ModerationFeedback.Any())
+{
+    <section class="bg-darker border-secondary rounded p-3">
+        <h2 class="h5">Previous feedback</h2>
+        <ul class="list-unstyled mb-0">
+            @foreach (var feedback in Model.ModerationFeedback.OrderByDescending(f => f.CreatedUtc))
+            {
+                <li class="mb-2">
+                    <span class="badge bg-secondary">@feedback.CreatedUtc.ToLocalTime().ToString("g")</span>
+                    <span class="ms-2">@feedback.Reason</span>
+                </li>
+            }
+        </ul>
+    </section>
+}
