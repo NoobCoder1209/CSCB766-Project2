@@ -1,0 +1,50 @@
+@model IEnumerable<Car>
+@{
+    ViewData["Title"] = "Moderation Queue";
+}
+
+<h1 class="h3 mb-3">Pending Cars</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-success">No cars waiting for review. Enjoy the smooth ride!</div>
+}
+else
+{
+    <div class="table-responsive rounded bg-darker shadow-sm">
+        <table class="table table-dark table-hover align-middle mb-0">
+            <thead class="table-secondary text-dark">
+                <tr>
+                    <th>Submitted</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Dealer</th>
+                    <th class="text-end">Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>@car.CreatedUtc.ToLocalTime().ToString("g")</td>
+                        <td>@car.Make</td>
+                        <td>@car.Model</td>
+                        <td>@car.DealerProfile?.DealershipName</td>
+                        <td class="text-end">@car.Price.ToString("C")</td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm">
+                                <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-outline-light">Review</a>
+                                <form asp-action="Approve" asp-route-id="@car.Id" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-success">Approve</button>
+                                </form>
+                                <a asp-action="Reject" asp-route-id="@car.Id" class="btn btn-outline-danger">Reject</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

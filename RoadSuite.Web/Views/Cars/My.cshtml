@@ -1,0 +1,17 @@
+@model (PagedResult<Car> Paged, CarFilterViewModel Filter)
+@{
+    ViewData["Title"] = "My Cars";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">My Garage</h1>
+    <a asp-action="Create" class="btn btn-primary">Add Car</a>
+</div>
+
+<div class="alert alert-secondary bg-gradient text-dark">
+    <strong>Status tips:</strong> Pending cars await moderator approval. Editing a car resubmits it for review. Marked for deletion cars are hidden until moderators remove them permanently.
+</div>
+
+@await Html.PartialAsync("_CarFilter", Model.Filter)
+
+@await Html.PartialAsync("_CarTable", (Model.Paged, "My", Model.Filter))

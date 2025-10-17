@@ -1,0 +1,29 @@
+@model IEnumerable<Notification>
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<h1 class="h3 mb-3">Notifications</h1>
+
+<form asp-action="MarkAllRead" method="post" class="mb-3">
+    <button type="submit" class="btn btn-outline-light btn-sm">Mark all as read</button>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-secondary">No notifications yet. Keep an eye on your listings for updates.</div>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var notification in Model)
+        {
+            <div class="list-group-item bg-darker text-light border-secondary mb-2">
+                <div class="d-flex justify-content-between">
+                    <span>@notification.Message</span>
+                    <span class="text-secondary small">@notification.CreatedUtc.ToLocalTime().ToString("g")</span>
+                </div>
+            </div>
+        }
+    </div>
+}

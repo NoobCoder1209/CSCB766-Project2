@@ -1,0 +1,24 @@
+@model Category
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<h1 class="h3 mb-3">Delete Category</h1>
+
+@if (ViewBag.Blocked == true)
+{
+    <div class="alert alert-danger">This category cannot be deleted while cars are assigned to it.</div>
+}
+
+<div class="card bg-darker border-secondary mb-3">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text text-secondary">Ensure there are no cars associated before deleting.</p>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post" class="d-flex gap-2">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger" @(ViewBag.Blocked == true ? "disabled" : "")>Confirm Delete</button>
+    <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+</form>

@@ -1,0 +1,32 @@
+@model ModerationDecisionViewModel
+@{
+    ViewData["Title"] = "Reject Car";
+    var car = ViewBag.Car as Car;
+}
+
+<h1 class="h3 mb-3">Reject @car?.Make @car?.Model</h1>
+
+<div class="card bg-darker border-secondary mb-3">
+    <div class="card-body">
+        <h5 class="card-title">@car?.Make @car?.Model (@car?.Year)</h5>
+        <p>@car?.Description</p>
+    </div>
+</div>
+
+<form asp-action="Reject" method="post" class="bg-darker border-secondary rounded p-4 shadow-sm">
+    <input type="hidden" asp-for="CarId" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Reason" class="form-label">Feedback to dealer</label>
+        <textarea asp-for="Reason" rows="4" class="form-control bg-dark text-light border-secondary" placeholder="Explain the rejection reason"></textarea>
+        <span asp-validation-for="Reason" class="text-danger"></span>
+    </div>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-danger">Submit Rejection</button>
+        <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
